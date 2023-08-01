@@ -1,0 +1,85 @@
+/***********************************************************/
+hhh,这是一个介绍，这个文件是存放这个网站html文件的，虽然很多此一举，但我还是要多此一举一下
+结束
+/***********************************************************/
+
+
+
+
+
+
+<!DOCTYPE html>
+<!--<html>-->
+<head>
+  <title>文件搜索和上传</title>
+  <style>
+    /* CSS样式可以根据你的需求进一步调整 */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .search-form {
+      margin-bottom: 20px;
+    }
+    .upload-form {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>文件搜索和上传</h1>
+
+    <div class="search-form">
+      <label for="search">搜索文件：</label>
+      <input type="text" id="search" name="search" placeholder="输入关键字">
+      <select id="keywords" name="keywords" multiple>
+        <option value="keyword1">关键词1</option>
+        <option value="keyword2">关键词2</option>
+        <option value="keyword3">关键词3</option>
+        <!-- 添加更多关键词选项 -->
+      </select>
+      <button onclick="search()">搜索</button>
+    </div>
+
+    <div class="upload-form">
+      <h2>文件上传</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="file" name="file">
+        <input type="text" id="fileKeywords" name="fileKeywords" placeholder="输入文件关键词">
+        <button type="button" onclick="upload()">上传</button>
+      </form>
+    </div>
+
+    <div id="searchResults"></div>
+  </div>
+
+  <script>
+    function search() {
+      var searchInput = document.getElementById('search').value;
+      var selectedKeywords = Array.from(document.getElementById('keywords').selectedOptions).map(option => option.value);
+
+      var searchResults = document.getElementById('searchResults');
+      searchResults.innerHTML = '执行搜索：关键字 - ' + searchInput + '，选中的关键词 - ' + selectedKeywords.join(', ');
+    }
+
+    function upload() {
+      var fileInput = document.getElementById('file');
+      var file = fileInput.files[0];
+      var fileKeywords = document.getElementById('fileKeywords').value;
+
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileKeywords', fileKeywords);
+
+      var uploadResults = document.createElement('div');
+      uploadResults.innerHTML = '上传文件：' + file.name + '，关键词 - ' + fileKeywords;
+      document.getElementById('searchResults').appendChild(uploadResults);
+
+      // 阻止表单的默认提交行为
+      event.preventDefault();
+    }
+  </script>
+</body>
+</html>
