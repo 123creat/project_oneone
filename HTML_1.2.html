@@ -1,0 +1,246 @@
+/***************************************/
+哈哈哈哈，鸡汤来喽
+咳咳，这个是当天晚上优化之后的版本，我的想法是之前的都不删，这样可以记录下来每次成长的东西，（虽然是通过人工智能写的大部分，小声比比一下）
+
+
+简单介绍一下这个最小的版本吧，插图等下看看能不能传上去
+
+多了编辑，删除，上传这些功能，这是最新的版本，不过还没有实现前后端集成以及用户交互，数据库也还没建立，所以是能算一个坤蛋，哈哈哈哈
+就这样
+结束
+/*********************************************//
+
+
+<!DOCTYPE html>
+<!--<html>-->
+<head>
+  <title>one and one</title>
+  <style>
+    /* CSS样式可以根据你的需求进一步调整 */
+    body {
+      background-color: lightgreen;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: lightgreen;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333333;
+      margin-bottom: 20px;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+
+    .upload-form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #666666;
+    }
+
+    input[type="text"],
+    select {
+      padding: 8px;
+      border: 1px solid #dddddd;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #ffa500;
+      border: none;
+      border-radius: 4px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff8800;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
+
+    .upload-form input[type="text"] {
+      margin-top: 10px;
+    }
+
+    #searchResults {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 4px;
+    }
+
+    .search-result {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-result-text {
+      flex-grow: 1;
+    }
+
+    .delete-btn,
+    .edit-btn {
+      margin-left: 10px;
+      padding: 4px 8px;
+      background-color: #ff0000;
+      border: none;
+      border-radius: 4px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background-color: #008080;
+    }
+
+    .delete-btn:hover,
+    .edit-btn:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NO PROBLEAM</h1>
+
+    <div id="searchResults"></div>
+
+    <div class="search-form">
+      <label for="search">搜索文件：</label>
+      <input type="text" id="search" name="search" placeholder="输入关键字">
+      <select id="keywords" name="keywords" multiple>
+        <option value="keyword1">C</option>
+        <option value="keyword2">C++</option>
+        <option value="keyword3">JAVA</option>
+        <option value="keyword4">PHP</option>
+        <option value="keyword5">PYTHON</option>
+        <option value="keyword6">C#</option>
+        <option value="keyword7">HTML</option>
+        <option value="keyword8">CSS</option>
+        <option value="keyword9">JAVA SCRIPT</option>
+      </select>
+      <button onclick="search()">搜索</button>
+    </div>
+
+    <div class="upload-form">
+      <h2>文件上传</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="file" name="file">
+        <input type="text" id="fileKeywords" name="fileKeywords" placeholder="输入文件关键词">
+        <button type="button" onclick="upload()">上传</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function search() {
+      var searchInput = document.getElementById('search').value;
+      var selectedKeywords = Array.from(document.getElementById('keywords').selectedOptions).map(option => option.value);
+
+      var searchResults = document.getElementById('searchResults');
+      searchResults.innerHTML = '';
+
+      var searchResultBox = document.createElement('div');
+      searchResultBox.className = 'search-result';
+      searchResultBox.innerHTML = '<div class="search-result-text">执行搜索：关键字 - ' + searchInput + '，选中的关键词 - ' + selectedKeywords.join(', ') + '</div>';
+
+      var deleteButton = document.createElement('button');
+      deleteButton.innerHTML = '删除';
+      deleteButton.className = 'delete-btn';
+      deleteButton.onclick = function() {
+        deleteFile(searchResultBox);
+      };
+
+      var editButton = document.createElement('button');
+      editButton.innerHTML = '编辑';
+      editButton.className = 'edit-btn';
+      editButton.onclick = function() {
+        editFile(searchResultBox);
+      };
+
+      searchResultBox.appendChild(deleteButton);
+      searchResultBox.appendChild(editButton);
+      searchResults.appendChild(searchResultBox);
+    }
+
+    function upload() {
+      var fileInput = document.getElementById('file');
+      var file = fileInput.files[0];
+      var fileKeywords = document.getElementById('fileKeywords').value;
+
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileKeywords', fileKeywords);
+
+      var uploadResults = document.createElement('div');
+      uploadResults.innerHTML = '上传文件：' + file.name + '，关键词 - ' + fileKeywords;
+
+      var deleteButton = document.createElement('button');
+      deleteButton.innerHTML = '删除';
+      deleteButton.className = 'delete-btn';
+      deleteButton.onclick = function() {
+        deleteFile(uploadResults);
+      };
+
+      var editButton = document.createElement('button');
+      editButton.innerHTML = '编辑';
+      editButton.className = 'edit-btn';
+      editButton.onclick = function() {
+        editFile(uploadResults);
+      };
+
+      uploadResults.appendChild(deleteButton);
+      uploadResults.appendChild(editButton);
+      document.getElementById('searchResults').appendChild(uploadResults);
+
+      // 阻止表单的默认提交行为
+      event.preventDefault();
+    }
+
+    function deleteFile(resultBox) {
+      resultBox.remove();
+    }
+
+    function editFile(resultBox) {
+      var resultText = resultBox.querySelector('.search-result-text');
+      var fileText = resultText.textContent;
+      var editInput = document.createElement('input');
+      editInput.type = 'text';
+      editInput.value = fileText;
+      var saveButton = document.createElement('button');
+      saveButton.innerHTML = '保存';
+      saveButton.className = 'edit-btn';
+      saveButton.onclick = function() {
+        saveFile(resultBox, editInput.value);
+      };
+      resultText.textContent = '';
+      resultText.appendChild(editInput);
+      resultText.appendChild(saveButton);
+    }
+
+    function saveFile(resultBox, newText) {
+      var resultText = resultBox.querySelector('.search-result-text');
+      resultText.textContent = newText;
+    }
+  </script>
+</body>
+</html>
