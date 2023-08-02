@@ -1,0 +1,167 @@
+/*****************************************/
+
+先在这里介绍一下，这次的代码相较于之前的改动很大，摒弃了很多之前的一些功能，改动了很多地方，网页直接换了一个
+问题bug现在还是很多
+嗯哼，慢慢改吧
+
+结束，就这样
+/*********************************************/
+
+
+
+
+//////初始页面
+<!-- 作业专用html框架 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lime Start Page</title>
+    <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/hello.css">
+</head>
+<!--启动就加载两个函数-->
+<body onload="time(),helloFloat()">
+    <div id="app">
+    	<!-- //设置的背景图片 -->
+        <div id="bg" class="bg">
+            <!-- 图片可替换 -->
+            <img id="image" alt="">
+        </div>
+        <!-- //设置登录按钮 -->
+        <div id="login">
+            <a href="./login.html">
+            	<!-- //从图标库引入图标 -->
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </a>
+        </div>
+        <!-- //主体内容区 -->
+        <main id="main">
+        	<!-- //问候弹窗 -->
+            <div id="hello" class="hello"></div>
+            <!-- //时间显示标签 -->
+            <div class="timecontainer">
+                <div class="time"></div>
+            </div>
+                <!-- 添加文件上传按钮 -->
+            <div id="upload">
+                <label for="file-upload-input" class="upload-label">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                </label>
+                <input id="file-upload-input" type="file" style="display: none;">
+            </div>
+            
+            <!-- 显示已选择的文件预览 -->
+            <div id="file-preview"></div>
+            <!-- //搜索框的容器 -->
+            <div class="search" id="searchbox">
+                <input id="search" autocomplete="off" type="text" class="search-input" value="Search">
+                <!-- //搜索的放大镜图标 暂未设置 -->
+                <i class="search-icon"></i>
+            </div>
+            <!-- //聚焦搜索框时，底部弹出的诗句 -->
+            <div id="poem" class="hide">
+                <div class="poemBg"></div>
+                <span>「未觉池塘春草梦，阶前梧叶已秋声。」</span>
+                <p id="author">—— 偶成</p>
+                <button id="poemMenu" type="button">
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </button>
+            </div>
+        </main>
+        <!-- //底部的一些信息切换 -->
+        <footer>
+            <div class="copy">
+                &copy; 2022
+            </div>
+            <div class="info">
+                <ul>
+                    <li>
+                        <a href="#" class="Ruoxin">Haoran Chen</a>
+                        <span>&</span>
+                        <a href="#" class="Shangzhen">Mei Mu</a>
+                        <span>|</span>
+                        <a href="#">about</a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <!-- //切换日夜场景按钮 -->
+        <div id="switch">
+            <i id="switchBtn" class="fa fa-sun-o" aria-hidden="true"></i>
+        </div>
+    </div>
+</body>
+<script src="./js/hello.js"></script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+//////登录页面
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-box">
+            <h2 class="register-title">
+                <span>没有账号，去</span>注册
+            </h2>
+            <div class="input-box">
+                <input type="text" placeholder="用户名">
+                <input id="input" type="password" placeholder="密码">
+                <i class="fa fa-eye-slash fa1" aria-hidden="true"></i>
+                <input id="input1" type="password" placeholder="确认密码">
+                <i class="fa fa-eye-slash fa2" aria-hidden="true"></i>
+            </div>
+            <button>注册</button>
+        </div>
+        <div class="login-box slide-up">
+            <div class="center">
+                <h2 class="login-title">
+                    <span>已有账号，去</span>登录
+                </h2>
+                <div class="input-box">
+                    <input type="text" placeholder="用户名">
+                    <input id="input2" type="password" placeholder="密码">
+                    <i class="fa fa-eye-slash fa3" aria-hidden="true"></i>
+                </div>
+                <button>登录</button>
+            </div>
+        </div>
+    </div>
+    <div id="lemon">
+        <a href="./hello.html">
+            <i class="fa fa-lemon-o" aria-hidden="true"></i>
+        </a>
+    </div>
+</body>
+<script src="./js/login.js"></script>
+
+</html>
